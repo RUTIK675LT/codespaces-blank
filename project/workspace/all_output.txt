@@ -1,0 +1,124 @@
+The core files, classes, functions, and methods that will be necessary are:
+
+1. index.html: This is the main HTML file that will contain the structure of the calculator.
+2. style.css: This CSS file will contain all the styles for the calculator.
+3. script.js: This JavaScript file will contain all the logic for the calculator operations.
+
+Let's start with the entry point file, which is index.html.
+
+index.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" disabled>
+        <div class="buttons">
+            <button class="operator" value="+">+</button>
+            <button class="operator" value="-">-</button>
+            <button class="operator" value="*">*</button>
+            <button class="operator" value="/">/</button>
+            <button class="number" value="0">0</button>
+            <button class="number" value="1">1</button>
+            <button class="number" value="2">2</button>
+            <button class="number" value="3">3</button>
+            <button class="number" value="4">4</button>
+            <button class="number" value="5">5</button>
+            <button class="number" value="6">6</button>
+            <button class="number" value="7">7</button>
+            <button class="number" value="8">8</button>
+            <button class="number" value="9">9</button>
+            <button class="equal-sign" value="=">=</button>
+            <button class="clear" value="AC">AC</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+Next, let's move on to the style.css file.
+
+style.css
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.calculator {
+    border: 1px solid #000;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.display {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    padding: 20px;
+    font-size: 18px;
+}
+```
+
+Finally, let's move on to the script.js file.
+
+script.js
+```javascript
+let display = document.querySelector('.display');
+let buttons = Array.from(document.querySelectorAll('button'));
+let operators = ['+', '-', '*', '/'];
+let input = '';
+let result = '';
+
+buttons.map( button => {
+    button.addEventListener('click', (e) => {
+        let buttonText = e.target.value;
+
+        if(buttonText === 'AC') {
+            input = '';
+            result = '';
+            display.value = input;
+            return;
+        }
+
+        if(buttonText === '=') {
+            try {
+                result = eval(input);
+                display.value = result;
+                input = '';
+            } catch {
+                display.value = "Error!";
+            }
+            return;
+        }
+
+        if(operators.includes(buttonText)) {
+            input += ` ${buttonText} `;
+        } else {
+            input += buttonText;
+        }
+
+        display.value = input;
+    });
+});
+```
+
+This completes the basic calculator web application. The application includes an HTML file for the structure, a CSS file for the styling, and a JavaScript file for the functionality. The calculator can perform addition, subtraction, multiplication, and division operations.
